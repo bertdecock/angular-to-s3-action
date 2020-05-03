@@ -1,8 +1,11 @@
 #!/bin/sh -l
 bucketName="$1"
 folderName="$2"
-echo "Will deploy the contents of /dist/$folderName to s3://$bucketName"
 cd "$GITHUB_WORKSPACE" || echo "Could not find the code. Make sure you did a checkout of the project."
+echo "Installing dependencies"
 npm i
+echo "Building for production"
 npx ng build --prod
-aws s3 sync s3://"$bucketName" --delete ./dist/"$folderName"
+echo "Will deploy the contents of /dist/$folderName to s3://$bucketName"
+aws s3 sync "./dist/$folderName" "s3://$bucketName" --delete
+echo "Deployed!"
