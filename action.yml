@@ -1,12 +1,12 @@
-name: 'Production Build'
-description: 'Build the angular project for production'
+name: 'Build'
+description: 'Build the angular project for the specified stage'
 inputs:
-  who-to-greet:
-    description: 'Who to greet'
+  stage:
+    description: 'The stage to build for'
     required: true
-    default: 'World'
+    default: 'prod'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.stage }}

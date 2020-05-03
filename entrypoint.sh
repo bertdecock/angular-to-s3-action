@@ -1,4 +1,3 @@
 #!/bin/sh -l
-echo "Hello $1!"
-time=$(date)
-echo "::set-output name=time::$time"
+cd "$(GITHUB_WORKSPACE)" || echo "Could not find the code. Make sure you did a checkout."
+npx ng build --"$1"
