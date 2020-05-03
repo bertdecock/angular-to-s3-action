@@ -1,12 +1,11 @@
 name: 'Build'
 description: 'Build the angular project for the specified stage'
 inputs:
-  stage:
-    description: 'The stage to build for'
+  bucket-name:
+    description: 'The deploy bucket'
     required: true
-    default: 'prod'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.stage }}
+    - ${{ inputs.bucket-name }}

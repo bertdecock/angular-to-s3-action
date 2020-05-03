@@ -1,20 +1,18 @@
 # angular-to-s3-action
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This action will build an angular project for production and deploy it to an s3 bucket.
 
-## Inputs
+To do this, it needs a few things.
+1. The ```AWS_ACCESS_KEY_ID``` environment variable. Set this in your action workflow file. It's best to define a secret in your repository. [Check this page for help.](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
+2. The ```AWS_SECRET_ACCESS_KEY``` environment variable. Same setup as above.
+3. The ```AWS_DEFAULT_REGION``` environment variable. Set this to the region of your bucket.
 
-### `who-to-greet`
-
-**Required** The name of the person to greet. Default `"World"`.
-
-## Outputs
-
-### `time`
-
-The time we greeted you.
-
-## Example usage
-
-uses: actions/hello-world-docker-action@v1
-with:
-  who-to-greet: 'Mona the Octocat'
+## Example setup
+```yaml
+steps:
+  - name: Build and deploy to s3
+    uses:  bertdecock/angular-to-s3-action@v1.1
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.awsAccessKeyId }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.awsSecretAccessKey }}
+      AWS_DEFAULT_REGION: 'eu-west-1'
+```
